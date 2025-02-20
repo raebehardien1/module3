@@ -1,9 +1,11 @@
 import mysql from 'mysql2/promise'
+import jwt from 'jsonwebtoken'
 import {config} from 'dotenv'
+
 config()
 
 const pool = mysql.createPool({
-    hostname:process.env.HOSTNAME,
+    host:process.env.HOST,
     user:process.env.USER,
     password:process.env.PASSWORD,
     database:process.env.DATABASE

@@ -11,6 +11,5 @@ export const getAllOrderDetailsCon = async (req,res) => {
         console.error('error')
         
     }
-    
+
 }
-   
