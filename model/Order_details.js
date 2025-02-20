@@ -36,7 +36,7 @@ export const getAllOrderDetails = async () => {
   //Adding order Detail
   export const InsertOrderDetail = async (order_id,product_id,quantity,price)=>{
     try {
-        await pool.query ('INSERT INTO order_details(order_id,product_id,quantity,price VALUES (?,?,?,?)',[order_id,product_id,quantity,price])
+        await pool.query ('INSERT INTO order_details(order_id,product_id,quantity,price) VALUES (?,?,?,?)',[order_id,product_id,quantity,price])
         console.log ('Added Succsesfully')
     } catch (error) {
         console.error('Error adding One order detail', error)
@@ -50,7 +50,7 @@ export const getAllOrderDetails = async () => {
   // Removing Order Detail 
   export const removeOrderDetail = async (order_details_id) => {
     try{
-    const [result]= await pool.query('DELET FROM order_details WHERE order_details_id = ?', [order_details_id])
+    const [result]= await pool.query('DELETE FROM order_details WHERE order_details_id = ?', [order_details_id])
     return result &&
     console.log('Deleted Succesfully');
   } catch (error) {
