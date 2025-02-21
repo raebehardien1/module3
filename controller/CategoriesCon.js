@@ -46,7 +46,7 @@ export const insertCategoryCon = async (req, res) => {
     }
 };
 
-
+// deleting category
 export const deleteCategoryCon = async (req, res) => {
     try {
         const category_id = 5; 
@@ -63,7 +63,7 @@ export const deleteCategoryCon = async (req, res) => {
 };
 
 
-
+// updating category
 export const updateCategoryCon = async (req, res) => {
     try {
       

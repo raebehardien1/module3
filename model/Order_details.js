@@ -20,7 +20,7 @@ export const getAllOrderDetails = async () => {
     }
   };
 
-  // 
+  // geting 
   export const  getSingleOrderDetail = async (order_details_id) => {
     try {
         let [data] = await pool.query('SELECT * FROM order_details WHERE order_details_id =?', [order_details_id]);
