@@ -9,8 +9,21 @@ export const getAllOrderDetailsCon = async (req,res) => {
         
     } catch (error) {
         console.error('error')
-        res.json({error :'An error occored while fetching order details'})
+        res.json({error :'An error occured while fetching order details'})
         
     }
 
 }
+
+//get single order controller
+export const getSingleOrderDetailCon = async (req,res) => {
+    try{
+        res.json({OrderDetails: await getSingleOrderDetail(req.params.order_details_id)})
+    } catch (error) {
+        console.error('error')
+        res.json({error: 'An error occured' })
+    }
+    
+}
+
+
