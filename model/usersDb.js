@@ -65,5 +65,3 @@ export const updateuser = async (user_id, userData) => {
     }
 };
 
-
-export{getAllusers, getSingleuser, insertuser, deleteuser, updateuser};

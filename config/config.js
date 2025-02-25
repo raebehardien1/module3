@@ -1,5 +1,5 @@
 import mysql from 'mysql2/promise'
-import jwt from 'jsonwebtoken'
+// import jwt from 'jsonwebtoken'
 import {config} from 'dotenv'
 
 config()

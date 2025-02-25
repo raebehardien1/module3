@@ -83,4 +83,3 @@ export const updateuserCon = async (req, res) => {
         res.status(500).json({ message: 'An error occurred while updating the user.' });
     }
 };
- export {getAllusersCon, getSingleuserCon, insertuserCon, deleteuserCon, updateuserCon};

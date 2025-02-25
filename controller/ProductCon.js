@@ -36,7 +36,6 @@ export const InsertProductCon = async (req,res) => {
 export const editProductlCon = async (req,res) => {
     let {name,description,catergory_id} = req.body
     res.json({Edited_Product: await EditProduct(name,description,catergory_id)})
-    
 }
 
 

@@ -27,8 +27,7 @@ export const getSingleCategoryCon = async (req, res) => {
     }
 };
 
-
-//insert caatergory
+//insert catergory
 export const insertCategoryCon = async (req, res) => {
     try {
         const { catergory_name } = req.body; // Get from request body
