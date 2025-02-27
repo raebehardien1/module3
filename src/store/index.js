@@ -10,7 +10,7 @@ const store = createStore({
   },
   mutations: {
     setProducts(state, products) {
-      state.products = products;
+      state.products = products || [];
     },
     setLoading(state, loading) {
       state.loading = loading;
@@ -19,27 +19,27 @@ const store = createStore({
       state.error = error;
     },
   },
-  // In the Vuex store
-// In the Vuex store
-actions: {
-  async fetchProducts({ commit }) {
-    try {
-      const response = await fetch('http://localhost:4500/products');
-      const data = await response.json();
-      
-      // Check if the response has a products array
-      if (data && Array.isArray(data.products)) {
-        commit('setProducts', data.products);
-      } else {
-        console.error('Products data is not an array:', data);
+  actions: {
+    async fetchProducts({ commit }) {
+      commit('setLoading', true);
+      try {
+        const response = await fetch('http://localhost:3500/products');
+        const data = await response.json();
+        
+        // Check if the response is valid
+        if (Array.isArray(data.products)) {
+          commit('setProducts', data.products);
+        } else {
+          throw new Error(data.error || 'Invalid data format');
+        }
+      } catch (error) {
+        commit('setError', error.message || 'Failed to fetch products');
+        console.error('Error fetching products:', error.message);
+      } finally {
+        commit('setLoading', false);
       }
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    }
+    },
   },
-},
-
-
   getters: {
     products: (state) => state.products,
     loading: (state) => state.loading,
@@ -48,4 +48,3 @@ actions: {
 });
 
 export default store;
-

@@ -1,34 +1,32 @@
 <template>
   <div class="product-list">
-    <!-- Loop through products and display 4 cards -->
-    <div v-for="product in products.slice(0, 4)" :key="product.product_id" class="product-card">
+    <div v-for="product in products" :key="product.product_id" class="product-card">
       <img :src="getProductImage(product)" :alt="product.name" class="product-image" />
       <h3>{{ product.name }}</h3>
       <p class="price">R{{ product.price }}</p>
-
-      <!-- Navigate to Product Details page -->
       <button @click="goToProduct(product.product_id)">View More</button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import { useStore } from 'vuex';
 import { useRouter } from 'vue-router';
 
 const store = useStore();
 const router = useRouter();
 
-const products = computed(() => store.state.products);
-store.dispatch('fetchProducts'); // Fetch products
+onMounted(async () => {
+  await store.dispatch('fetchProducts'); // Ensure data is fetched
+});
 
-// Function to navigate to the product details page
+const products = computed(() => store.state.products || []);
+
 const goToProduct = (productId) => {
   router.push(`/product/${productId}`);
 };
 
-// Function to get product image dynamically
 const getProductImage = (product) => {
   const imageName = product.name.toLowerCase().replace(/\s+/g, '_');
   try {
