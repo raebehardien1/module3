@@ -4,8 +4,7 @@
     <p>{{ product.description }}</p>
     <p class="price">Price: R{{ product.price }}</p>
     <p class="category">Category : {{ product.catergory_name }}</p>
-    <button class="buy-btn">Buy Now</button>
-
+    <button class="buy-btn" @click="addToCart(product)">Add to Cart</button>
     <button class="back-btn" @click="goBack">Back to Products</button>
   </div>
   <div v-else>
@@ -32,10 +31,17 @@ const product = computed(() => {
   return store.state.products.find(p => p.product_id === productId.value);
 });
 
+const addToCart = (product) => {
+  console.log('Adding to cart:', product);
+  store.dispatch('addToCart', product);
+  router.push('/cart')
+};
+
 const goBack = () => {
-  router.push('/');
+  router.push('/productList');
 };
 </script>
+
 
 <style scoped>
 .product-details {
