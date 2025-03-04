@@ -8,9 +8,9 @@ export const getAllOrderDetails = async () => {
       let [data] = await pool.query(`
         SELECT *
         FROM 
-        order_details
+        order_details;
 
-        // dont forget to join so they can be able to see the exact thing the ordered
+      
           
       `);
       return data;

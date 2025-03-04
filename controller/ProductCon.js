@@ -6,13 +6,10 @@ import {getAllProducts,getSingleProduct,removeProduct,InsertProduct,EditProduct 
 export const getAllProductsCon = async (req,res) => {
     try {
         res.json({OrderDetails: await getAllProducts()})
-        
     } catch (error) {
         console.error('error')
         res.json({error :'An error occored while fetching products'})
-        
     }
-    
 }
 
 // Geting single products con
@@ -21,9 +18,8 @@ export const getSinglProductCon = async (req,res) => {
         res.json({oneProduct: await getSingleOrderDetail(req.params.product_id)})
     } catch (error) {
         console.error({error: 'An Error Occoured'})
-        
     }
-    
+
 }
 
 // Inserting Product  controller
@@ -42,6 +38,5 @@ export const editProductlCon = async (req,res) => {
 //removing Product
 export const removeProductCon = async (req,res) => {
     res.json({DeleteProduct: await removeProduct(req.params.product_id)})
-    
 }
 

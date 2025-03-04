@@ -50,15 +50,21 @@ export const getAllProducts = async () => {
 
   // Removing product
   export const removeProduct = async (product_id) => {
-    try{
-    const [result]= await pool.query('DELETE FROM product WHERE product_id = ?', [product_id])
-    return result &&
-    console.log('Deleted Succesfully');
-  } catch (error) {
-    console.error('Error Removing' )
-    throw error;
-  }
-}
+    try {
+        const [result] = await pool.query('DELETE FROM products WHERE product_id = ?', [product_id]);
+        if (result.affectedRows > 0) {
+            console.log('Deleted Successfully');
+            return { success: true, message: 'Product deleted successfully.' };
+        } else {
+            console.log('Product not found.');
+            return { success: false, message: 'Product not found.' };
+        }
+    } catch (error) {
+        console.error('Error Removing Product:', error);
+        throw new Error('Error removing product');
+    }
+};
+
 
 // Editing product
 export const EditProduct = async (name,description,catergory_id) =>{

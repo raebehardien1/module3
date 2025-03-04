@@ -84,3 +84,17 @@ export const updateWishlistItemCon = async (req, res) => {
         res.status(500).json({ message: 'An error occurred while updating the item.' });
     }
 };
+
+export const login = async (req, res) => {
+    const { user_id, email, password } = req.body;
+    const user = await getUserByUsername(user_id, email);
+    if (!user) return res.status(401).json({ error: "Invalid credentials" });
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(401).json({ error: "Invalid credentials" });
+    const token = jwt.sign(
+        { user_id: user.user_id, email: user.email },
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" }
+    );
+    res.json({ message: "Login successful", token });
+};
