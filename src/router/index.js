@@ -6,18 +6,20 @@ import ProductList from '../views/product.vue';
 import ProductDetails from '../components/ProductPage.vue'
 import cart from '../views/CartView.vue'
 import footer from '../components/footerComp.vue'
+import CheckoutView from '@/views/checkoutView.vue';
 
 
 
 
 const routes = [
   { path: '/', component: Home },
+  { path: '/checkout', component: CheckoutView },
   
   { path: '/cart', component: cart },
   { path: '/footer', component: footer },
   { path: '/productList', component: ProductList },
   { path: '/about', component: About },
-  { path: '/product/:id', component: ProductDetails, props: true },
+  { path: '/product/:id', component: ProductDetails, props: true , name: 'ProductPage'},
   { path: '/contact', component: Contact },
 ];
 

@@ -30,19 +30,22 @@
 </form>
 
 <!-- Search Results -->
-<div class="container mt-4">
-    <div v-if="searchResults.length > 0">
-      <h3>Search Results:</h3>
-      <ul>
-        <li v-for="product in searchResults" :key="product.product_id">
+  <div class="container mt-4">
+  <div v-if="searchResults.length > 0">
+    <h3>Search Results:</h3>
+    <ul>
+      <li v-for="product in searchResults" :key="product.product_id">
+        <a @click.prevent="navigateToProductDetails(product.product_id)" href="#">
           {{ product.name }} - {{ product.price }} - {{ product.description }}
-        </li>
-      </ul>
-    </div>
-    <div v-else-if="searchQuery">
-      <h3>No sneakers found for "{{ searchQuery }}"</h3>
-    </div>
+        </a>
+      </li>
+    </ul>
   </div>
+  <div v-else-if="searchQuery">
+    <h3>No sneakers found for "{{ searchQuery }}"</h3>
+  </div>
+</div>
+
 
 
         <!-- Navbar Collapse -->
@@ -113,12 +116,19 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
+import { useRouter } from 'vue-router';
 
 const store = useStore();
+const router = useRouter();
 const searchQuery = ref('');
 const searchResults = ref([]);
 
 const cartItemCount = computed(() => store.state.cart.reduce((count, item) => count + item.quantity, 0));
+
+const navigateToProductDetails = (id) => {
+  router.push({ name: 'ProductPage', params: { id } });
+};
+
 
 const searchItems = async () => {
   try {
@@ -147,7 +157,6 @@ const searchItems = async () => {
       console.error('Expected array but got:', data);
       searchResults.value = [];
     }
-
   } catch (error) {
     console.error('Error searching items:', error);
     alert(`Error searching items: ${error.message}`);

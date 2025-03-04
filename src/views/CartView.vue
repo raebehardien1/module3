@@ -18,7 +18,7 @@
           </div>
         </div>
         <p class="total">Total: R{{ cartTotal }}</p>
-        <button class="checkout-btn">Proceed to Checkout</button>
+        <button class="checkout-btn" @click ="goToCheckout">Proceed to Checkout</button>
         <button class="checkout-btn" @click="goBack">Continue shopping</button>
       </div>
       <div v-else>
@@ -57,6 +57,9 @@
 
   const goBack = () => {
   router.push('/productList');
+};
+  const goToCheckout = () => {
+  router.push('/checkout');
 };
   </script>
   
