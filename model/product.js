@@ -4,22 +4,27 @@ import {pool} from '../config/config.js'
 
 // getting all products
 export const getAllProducts = async () => {
-    try {
-      let [data] = await pool.query(`
-        SELECT *
-        FROM 
+  try {
+    let [data] = await pool.query(`
+      SELECT 
+        products.product_id,
+        products.name,
+        products.price,
+        products.description,
+        catergories.catergory_name,
+        catergories.catergory_id
+      FROM 
         products
-        
+      LEFT JOIN 
+        catergories ON products.catergory_id = catergories.catergory_id;
+    `);
+    return data;
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    throw error;  
+  }
+};
 
-        
-          
-      `); 
-      return data;
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      throw error;  
-    }
-  };
 
   // 
   export const  getSingleProduct = async (product_id) => {
@@ -71,3 +76,28 @@ export const EditProduct = async (name,description,catergory_id) =>{
         
     }
 }
+
+// Searching for products by name (case-insensitive)
+export const searchProducts = async (query) => {
+  try {
+    const [data] = await pool.query(`
+      SELECT 
+        products.product_id,
+        products.name,
+        products.price,
+        products.description,
+        catergories.catergory_name,
+        catergories.catergory_id
+      FROM 
+        products
+      LEFT JOIN 
+        catergories ON products.catergory_id = catergories.catergory_id
+      WHERE 
+        products.name LIKE ?
+    `, [`%${query}%`]);
+    return data;
+  } catch (error) {
+    console.error('Error searching products:', error);
+    throw error;
+  }
+};

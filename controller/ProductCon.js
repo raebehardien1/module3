@@ -1,11 +1,11 @@
 // Importing from sql functions from model
 
-import {getAllProducts,getSingleProduct,removeProduct,InsertProduct,EditProduct } from "../model/product.js";
+import {getAllProducts,getSingleProduct,removeProduct,InsertProduct,EditProduct,searchProducts } from "../model/product.js";
 
 // All products Conctroller
 export const getAllProductsCon = async (req,res) => {
     try {
-        res.json({OrderDetails: await getAllProducts()})
+        res.json({products: await getAllProducts()})
         
     } catch (error) {
         console.error('error')
@@ -18,7 +18,7 @@ export const getAllProductsCon = async (req,res) => {
 // Geting single products con
 export const getSinglProductCon = async (req,res) => {
     try {
-        res.json({oneProduct: await getSingleOrderDetail(req.params.product_id)})
+        res.json({oneProduct: await getSingleProduct(req.params.product_id)})
     } catch (error) {
         console.error({error: 'An Error Occoured'})
         
@@ -44,4 +44,15 @@ export const removeProductCon = async (req,res) => {
     res.json({DeleteProduct: await removeProduct(req.params.product_id)})
     
 }
+
+// Searching products Controller
+export const searchProductsCon = async (req, res) => {
+    try {
+      const query = req.query.query || '';
+      res.json({ products: await searchProducts(query) });
+    } catch (error) {
+      console.error('error');
+      res.json({ error: 'An error occurred while searching for products' });
+    }
+  };
 

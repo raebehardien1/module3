@@ -9,6 +9,8 @@ import payment from "./routes/paymentRoutes.js"
 import wishlist from "./routes/Order_detailsRoutes.js"
 import products from "./routes/productRoutes.js"
 import users from "./routes/usersRoutes.js"
+import cart from "./routes/cartRoutes.js"
+import checkout from "./routes/checkoutRoutes.js"
 import cors from 'cors'
 import { config } from 'dotenv'
 config()
@@ -27,6 +29,8 @@ app.use('/payments',payment)
 app.use('/saved_items', wishlist)
 app.use('/products',products)
 app.use ('/users',users)
+app.use('/cart', cart)
+app.use('/checkouts', checkout)
 
 app.listen(PORT,()=>{
     console.log('http://localhost:' + PORT);
